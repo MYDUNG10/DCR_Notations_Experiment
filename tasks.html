@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>DCR Notations Experiment</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+        <p id="task-text">Are you happy? :)</p>
+        <img id="task-image"/>
+        <div class="task-options">
+            <div>
+                <input type="radio" id="option-true" name="answer" onchange="enableNext()"/>
+                <label for="option-true">True</label>
+            </div>
+
+            <div>
+                <input type="radio" id="option-false" name="answer" onchange="enableNext()"/>
+                <label for="option-false">False</label>
+            </div>
+
+            <div>
+                <input type="radio" id="option-do-not-know" name="answer" onchange="enableNext()"/>
+                <label for="option-do-not-know">I do not know</label>
+            </div>
+            
+        </div>
+
+        <button id="next-button" onclick="nextTask()" disabled>NEXT</button>
+    </div>
+    
+    <script type="text/javascript" src="tasks.js"></script>
+</body>
+</html>
