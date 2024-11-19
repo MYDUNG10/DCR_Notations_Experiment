@@ -19,9 +19,25 @@ var startTime;
 
 var answers = [];
 
-var tasks = [["Are you happy? :)", "image-src"],
-             ["Is this fair? :(", "image-src"],
-             ["Are you unhappy? :C", "image-src"]];
+var tasks = [['When "Paint piece JMF" is done, "Move piece KBI" is removed from the process.', "resources/Exclude_01.svg"],
+             ['When "Paint piece JMF" is done, "Move piece KBI" is removed from the process.', "resources/Exclude_02.svg"],
+             ['When "Paint piece JMF” is done, "Move piece KBI” is removed from the process.', "resources/Exclude_03.svg"],
+
+             ['When "Test piece DCA” is done, "Cut piece LVO" is added to the process.', "resources/Include_01.svg"],
+             ['When "Test piece DCA" is done, "Cut piece LVO" is added to the process.', "resources/Include_02.svg"],
+             ['When "Test piece DCA" is done, "Cut piece LVO" is added to the process.', "resources/Include_03.svg"],
+
+             ['After "Lift piece AVT" is done, "Bend piece QDB" becomes required (i.e. pending) and needs to be done before the process can finish.', "resources/Response_01.svg"],
+             ['After "Lift piece AVT" is done, "Bend piece QDB" becomes required (i.e. pending) and needs to be done before the process can finish.', "resources/Response_02.svg"],
+             ['After "Lift piece AVT" is done, "Bend piece QDB" becomes required (i.e. pending) and needs to be done before the process can finish.', "resources/Response_03.svg"],
+
+             ['Before "Heat piece OJX" can be done "Fix piece TQS" should have been done at least once in the past', "resources/Condition_01.svg"],
+             ['Before "Heat piece OJX" can be done "Fix piece TQS" should have been done at least once in the past', "resources/Condition_02.svg"],
+             ['Before "Heat piece OJX" can be done "Fix piece TQS" should have been done at least once in the past', "resources/Condition_03.svg"],
+
+             ['While "Fold piece NVC" is required to be done (i.e. pending), "Cool piece XSJ" is blocked from executing.', "resources/Milestone_01.svg"],
+             ['While "Fold piece NVC" is required to be done (i.e. pending), "Cool piece XSJ" is blocked from executing.', "resources/Milestone_02.svg"],
+             ['While "Fold piece NVC" is required to be done (i.e. pending), "Cool piece XSJ" is blocked from executing.', "resources/Milestone_03.svg"]];
 shuffle(tasks);
 
 var currentIndex = 0;
@@ -39,7 +55,9 @@ function enableNext(){
 }
 
 function displayTask(i){
-    taskText.innerHTML = tasks[i][0];
+    let text = tasks[i][0];
+    text = text.replace(/"([^"]+)"/g, '<strong>"$1"</strong>');
+    taskText.innerHTML = text;
     taskImage.src = tasks[i][1];
 }
 
