@@ -99,7 +99,7 @@ function completeExperiment(){ //https://stackoverflow.com/a/14966131
     var encodedUri = encodeURI(csvString);
     var link = document.createElement("a");
     link.setAttribute("href", encodedUri);
-    link.setAttribute("download", "DCR_Notations_Experiment_result.csv");
+    link.setAttribute("download", "DCR_Experiment_result.csv");
     document.body.appendChild(link)
     
     console.log(csvString);
