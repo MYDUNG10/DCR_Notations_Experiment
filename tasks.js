@@ -1,44 +1,46 @@
-function shuffle(array) { //https://stackoverflow.com/a/2450976
-    var currentIndex = array.length;
-    while (currentIndex != 0) {
-      let randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex--;
-  
-      // And swap it with the current element.
-      [array[currentIndex], array[randomIndex]] = [
-        array[randomIndex], array[currentIndex]];
-    }
+function shuffleWithoutConsecutiveRepeats(array) {
+    let shuffled;
+    do {
+        shuffled = [...array];
+        for (let i = shuffled.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+    } while (hasConsecutiveRepeats(shuffled));
+    return shuffled;
 }
 
+function hasConsecutiveRepeats(array) {
+    for (let i = 0; i < array.length - 1; i++) {
+        if (array[i][0] === array[i + 1][0]) {
+            return true;
+        }
+    }
+    return false;
+}
 
 const valueTrue = "TRUE"
 const valueFalse = "FALSE"
 const valueDoNotKnow = "DO_NOT_KNOW"
 
-var startTime;
+var startTime = new Date().toISOString();
 
 var answers = [];
 
-var tasks = [['When "Paint piece JMF" is done, <br> "Move piece KBI" is removed from the process.', "resources/Exclude_01.svg"],
-            //  ['When "Paint piece JMF" is done, <br> "Move piece KBI" is removed from the process.', "resources/Exclude_02.svg"],
-            //  ['When "Paint piece JMF" is done, <br> "Move piece KBI" is removed from the process.', "resources/Exclude_03.svg"],
+var tasks = [
+    ['When "Paint piece JMF" is done, <br> "Move piece KBI" is removed from the process.', "resources/Exclude_01.svg"],
+    ['When "Paint piece JMF" is done, <br> "Move piece KBI" is removed from the process.', "resources/Exclude_02.svg"],
+    ['When "Paint piece JMF" is done, <br> "Move piece KBI" is removed from the process.', "resources/Exclude_03.svg"],
+    ['When "Test piece DCA" is done, <br> "Cut piece LVO" is added to the process.', "resources/Include_01.svg"],
+    ['When "Test piece DCA" is done, <br> "Cut piece LVO" is added to the process.', "resources/Include_02.svg"],
+    ['When "Test piece DCA" is done, <br> "Cut piece LVO" is added to the process.', "resources/Include_03.svg"],
+    ['After "Lift piece AVT" is done, "Bend piece ICL" becomes required (i.e., pending) and must be done before the process can finish.', "resources/Response_01.svg"],
+    ['After "Lift piece AVT" is done, "Bend piece ICL" becomes required (i.e., pending) and must be done before the process can finish.', "resources/Response_03.svg"],
+    ['Before "Heat piece OJX" can be done <br> "Fix piece TQS" should have been done at least once in the past.', "resources/Condition_01.svg"],
+    ['While "Fold piece NVC" is required to be done (i.e., pending), <br> "Cool piece XSJ" is blocked from execution.', "resources/Milestone_03.svg"]
+];
 
-            //  ['When "Test piece DCA" is done, <br> "Cut piece LVO" is added to the process.', "resources/Include_01.svg"],
-             ['When "Test piece DCA" is done, <br> "Cut piece LVO" is added to the process.', "resources/Include_02.svg"],
-            //  ['When "Test piece DCA" is done, <br> "Cut piece LVO" is added to the process.', "resources/Include_03.svg"],
-
-            //  ['After "Lift piece AVT" is done, "Bend piece ICL" becomes required (i.e., pending) and must be done before the process can finish.', "resources/Response_01.svg"],
-            //  ['After "Lift piece AVT" is done, "Bend piece ICL" becomes required (i.e., pending) and must be done before the process can finish.', "resources/Response_02.svg"],
-             ['After "Lift piece AVT" is done, "Bend piece ICL" becomes required (i.e., pending) and must be done before the process can finish.', "resources/Response_03.svg"],
-
-             ['Before "Heat piece OJX" can be done <br> "Fix piece TQS" should have been done at least once in the past.', "resources/Condition_01.svg"],
-            //  ['Before "Heat piece OJX" can be done <br> "Fix piece TQS" should have been done at least once in the past.', "resources/Condition_02.svg"],
-            //  ['Before "Heat piece OJX" can be done <br> "Fix piece TQS" should have been done at least once in the past.', "resources/Condition_03.svg"],
-
-            //  ['While "Fold piece NVC" is required to be done (i.e., pending), <br> "Cool piece XSJ" is blocked from execution.', "resources/Milestone_01.svg"],
-            //  ['While "Fold piece NVC" is required to be done (i.e., pending), <br> "Cool piece XSJ" is blocked from execution.', "resources/Milestone_02.svg"],
-             ['While "Fold piece NVC" is required to be done (i.e., pending), <br> "Cool piece XSJ" is blocked from execution.', "resources/Milestone_03.svg"]];
-shuffle(tasks);
+tasks = shuffleWithoutConsecutiveRepeats(tasks);
 
 var currentIndex = 0;
 
@@ -64,6 +66,7 @@ function displayTask(i){
 function nextTask(){
     //Save answer
     currentTime = new Date();
+
     if (optionTrue.checked) {
         answers[currentIndex] = [currentTime.toISOString(), tasks[currentIndex][0], valueTrue];
     } else if (optionFalse.checked) {
@@ -71,7 +74,9 @@ function nextTask(){
     } else if (optionDoNotKnow.checked) {
         answers[currentIndex] = [currentTime.toISOString(), tasks[currentIndex][0], valueDoNotKnow];
     }
+
     console.log(optionTrue.checked, optionFalse.checked, optionDoNotKnow.checked);
+    
     //Reset
     optionTrue.checked = false;
     optionFalse.checked = false;
@@ -92,8 +97,11 @@ function completeExperiment(){ //https://stackoverflow.com/a/14966131
     //Create CSV
     let csvString = "data:text/csv;charset=utf-8,";
 
+    csvString += `"${startTime}"\n`;
+    
     answers.forEach(function(row) {
-        csvString += row.join(",") + "\n";
+        const quotedRow = row.map(value => `"${value.replace(/"/g, '""')}"`);
+        csvString += quotedRow.join(",") + "\n";
     });
 
     var encodedUri = encodeURI(csvString);
@@ -110,6 +118,10 @@ function completeExperiment(){ //https://stackoverflow.com/a/14966131
 }
 
 //Initiate
-
-startTime = Date.now();
 displayTask(currentIndex);
+
+// Print the shuffled order for checking
+console.log("Shuffled order:");
+tasks.forEach((task, index) => {
+    console.log(`${index + 1}. ${task[0]}`);
+});
