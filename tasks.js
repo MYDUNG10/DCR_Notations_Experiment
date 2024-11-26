@@ -28,50 +28,50 @@ var startTime = new Date().toISOString();
 var answers = [];
 
 var tasks = [
-    ['When "Paint piece JMF" is done, <br> "Move piece KBI" is removed from the process.', "resources/Exclude_01.svg"],
-    ['When "Paint piece JMF" is done, <br> "Move piece KBI" is removed from the process.', "resources/Exclude_02.svg"],
-    ['When "Paint piece JMF" is done, <br> "Move piece KBI" is removed from the process.', "resources/Exclude_03.svg"],
+    ['When "Paint piece JMF" is done, <br> "Move piece KBI" is removed from the process.', "resources/Exclude_01.svg"],  // YES
+    ['When "Paint piece JMF" is done, <br> "Move piece KBI" is removed from the process.', "resources/Exclude_02.svg"],  // YES
+    ['When "Paint piece JMF" is done, <br> "Move piece KBI" is removed from the process.', "resources/Exclude_03.svg"], // WRONG FIX
 
-    ['When "Test piece DCA" is done, <br> "Cut piece LVO" is added to the process.', "resources/Include_01.svg"],
-    ['When "Test piece DCA" is done, <br> "Cut piece LVO" is added to the process.', "resources/Include_02.svg"],
-    ['When "Test piece DCA" is done, <br> "Cut piece LVO" is added to the process.', "resources/Include_03.svg"],
+    ['When "Test piece DCA" is done, <br> "Cut piece LVO" is added to the process.', "resources/Include_01.svg"],  // YES
+    ['When "Test piece DCA" is done, <br> "Cut piece LVO" is added to the process.', "resources/Include_02.svg"],  // YES
+    ['When "Test piece DCA" is done, <br> "Cut piece LVO" is added to the process.', "resources/Include_03.svg"],  // YES
 
-    ['After "Lift piece AVT" is done, "Bend piece ICL" becomes required (i.e., pending) and must be done before the process can finish.', "resources/Response_01.svg"],
-    ['After "Lift piece AVT" is done, "Bend piece ICL" becomes required (i.e., pending) and must be done before the process can finish.', "resources/Response_02.svg"],
-    ['After "Lift piece AVT" is done, "Bend piece ICL" becomes required (i.e., pending) and must be done before the process can finish.', "resources/Response_03.svg"],
+    ['After "Lift piece AVT" is done, "Bend piece ICL" becomes required (i.e., pending) and must be done before the process can finish.', "resources/response_01.svg"],  // YES
+    ['After "Lift piece AVT" is done, "Bend piece ICL" becomes required (i.e., pending) and must be done before the process can finish.', "resources/response_02.svg"],  // YES
+    ['After "Lift piece AVT" is done, "Bend piece ICL" becomes required (i.e., pending) and must be done before the process can finish.', "resources/response_03.svg"], // YES
 
-    ['Before "Heat piece OJX" can be done <br> "Fix piece TQS" should have been done at least once in the past.', "resources/Condition_01.svg"],
-    ['Before "Heat piece OJX" can be done <br> "Fix piece TQS" should have been done at least once in the past.', "resources/Condition_02.svg"],
-    ['Before "Heat piece OJX" can be done <br> "Fix piece TQS" should have been done at least once in the past.', "resources/Condition_03.svg"],
+    ['Before "Heat piece OJX" can be done <br> "Fix piece TQS" should have been done at least once in the past.', "resources/condition_01.svg"],  // YES
+    ['Before "Heat piece OJX" can be done <br> "Fix piece TQS" should have been done at least once in the past.', "resources/condition_02.svg"],   // YES
+    ['Before "Heat piece OJX" can be done <br> "Fix piece TQS" should have been done at least once in the past.', "resources/condition_03.svg"],  // YES
 
 
-    ['While "Fold piece NVC" is required to be done (i.e., pending), <br> "Cool piece XSJ" is blocked from execution.', "resources/Milestone_01.svg"],
-    ['While "Fold piece NVC" is required to be done (i.e., pending), <br> "Cool piece XSJ" is blocked from execution.', "resources/Milestone_02.svg"],
-    ['While "Fold piece NVC" is required to be done (i.e., pending), <br> "Cool piece XSJ" is blocked from execution.', "resources/Milestone_03.svg"],
+    ['While "Fold piece NVC" is required to be done (i.e., pending), <br> "Cool piece XSJ" is blocked from execution.', "resources/Milestone_01.svg"],  // YES
+    ['While "Fold piece NVC" is required to be done (i.e., pending), <br> "Cool piece XSJ" is blocked from execution.', "resources/Milestone_02.svg"], // NOTATION FIX
+    ['While "Fold piece NVC" is required to be done (i.e., pending), <br> "Cool piece XSJ" is blocked from execution.', "resources/Milestone_03.svg"], // YES
 
     // ['While "Repair piece HFA" is required to be done (i.e., pending), <br> "Bake piece NWG" is blocked from execution.', "resources/Milestone_01.svg"],
     // ['While "Repair piece HFA" is required to be done (i.e., pending), <br> "Bake piece NWG" is blocked from execution.', "resources/Milestone_02.svg"],
     // ['While "Repair piece HFA" is required to be done (i.e., pending), <br> "Bake piece NWG" is blocked from execution.', "resources/Milestone_03.svg"],
 
-    ['While "Connect piece ZCR" is required to be done (i.e., pending), <br> "Analyze piece TXE" is blocked from execution.', "resources/Milestone_01_False.svg"], // From Exclude
-    ['While "Connect piece ZCR" is required to be done (i.e., pending), <br> "Analyze piece TXE" is blocked from execution.', "resources/Milestone_02_False.svg"], // Symbol with response
-    ['While "Connect piece ZCR" is required to be done (i.e., pending), <br> "Analyze piece TXE" is blocked from execution.', "resources/Milestone_03_False.svg"],
+    ['While "Connect piece ZCR" is required to be done (i.e., pending), <br> "Analyze piece TXE" is blocked from execution.', "resources/Milestone_01_False.svg"], // From Exclude  // YES
+    ['While "Connect piece ZCR" is required to be done (i.e., pending), <br> "Analyze piece TXE" is blocked from execution.', "resources/Milestone_02_False.svg"], // Symbol with response  // YES
+    ['While "Connect piece ZCR" is required to be done (i.e., pending), <br> "Analyze piece TXE" is blocked from execution.', "resources/Milestone_03_False.svg"],  // YES
 
-    ['When "Inspect piece VLD" is done, <br> "Upgrade piece YPB" is added to the process.', "resources/Include_01_False.svg"], // From Condition
-    ['When "Inspect piece VLD" is done, <br> "Upgrade piece YPB" is added to the process.', "resources/Include_02_False.svg"], // Direction
-    ['When "Inspect piece VLD" is done, <br> "Upgrade piece YPB" is added to the process.', "resources/Include_03_False.svg"],
+    ['When "Inspect piece VLD" is done, <br> "Upgrade piece YPB" is added to the process.', "resources/Include_01_False.svg"], // From Condition  // YES
+    ['When "Inspect piece VLD" is done, <br> "Upgrade piece YPB" is added to the process.', "resources/Include_02_False.svg"], // Direction  // YES
+    ['When "Inspect piece VLD" is done, <br> "Upgrade piece YPB" is added to the process.', "resources/Include_03_False.svg"],  // YES
 
-    ['When "Measure piece HLK" is done, <br> "Break piece ADE" is removed from the process.', "resources/Exclude_01_False.svg"], // From Milestone
-    ['When "Measure piece HLK" is done, <br> "Break piece ADE" is removed from the process.', "resources/Exclude_02_False.svg"], // Direction
-    ['When "Measure piece HLK" is done, <br> "Break piece ADE" is removed from the process.', "resources/Exclude_03_False.svg"],
+    ['When "Measure piece HLK" is done, <br> "Break piece ADE" is removed from the process.', "resources/Exclude_01_False.svg"], // From Milestone  // YES
+    ['When "Measure piece HLK" is done, <br> "Break piece ADE" is removed from the process.', "resources/Exclude_02_False.svg"], // Direction // NOTATION // FIX
+    ['When "Measure piece HLK" is done, <br> "Break piece ADE" is removed from the process.', "resources/Exclude_03_False.svg"], // NOTATION FIX
 
-    ['Before "Assemble piece QDB" can be done <br> "Install piece OSG" should have been done at least once in the past.', "resources/Condition_01_False.svg"], // From response
-    ['Before "Assemble piece QDB" can be done <br> "Install piece OSG" should have been done at least once in the past.', "resources/Condition_02_False.svg"], // Direction
-    ['Before "Assemble piece QDB" can be done <br> "Install piece OSG" should have been done at least once in the past.', "resources/Condition_03_False.svg"],
+    ['Before "Assemble piece QDB" can be done <br> "Install piece OSG" should have been done at least once in the past.', "resources/Condition_01_False.svg"], // From response  // YES
+    ['Before "Assemble piece QDB" can be done <br> "Install piece OSG" should have been done at least once in the past.', "resources/Condition_02_False.svg"], // Direction  // YES
+    ['Before "Assemble piece QDB" can be done <br> "Install piece OSG" should have been done at least once in the past.', "resources/Condition_03_False.svg"],  // YES
     
-    ['After "Design piece PKQ" is done, "Build piece RMY" becomes required (i.e., pending) and must be done before the process can finish.', "resources/Response_01_False.svg"], // From Include
-    ['After "Design piece PKQ" is done, "Build piece RMY" becomes required (i.e., pending) and must be done before the process can finish.', "resources/Response_02_False.svg"], // Symbol with condition
-    ['After "Design piece PKQ" is done, "Build piece RMY" becomes required (i.e., pending) and must be done before the process can finish.', "resources/Response_03_False.svg"],
+    ['After "Design piece PKQ" is done, "Build piece RMY" becomes required (i.e., pending) and must be done before the process can finish.', "resources/Response_01_False.svg"], // From Include  // YES
+    ['After "Design piece PKQ" is done, "Build piece RMY" becomes required (i.e., pending) and must be done before the process can finish.', "resources/Response_02_False.svg"], // Symbol with condition // NOTATION
+    ['After "Design piece PKQ" is done, "Build piece RMY" becomes required (i.e., pending) and must be done before the process can finish.', "resources/Response_03_False.svg"], // YES
     // ['When "Inspect piece FGH" is done, <br> "Upgrade piece ASD" is removed from the process.', "resources/demooo.svg"],
 ];
 
