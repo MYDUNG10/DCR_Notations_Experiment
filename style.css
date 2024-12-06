@@ -107,7 +107,7 @@ button:hover:not(:disabled) {
     text-align: center;
     margin: 0;
     margin-bottom: 4rem;
-    max-width: 56%;
+    max-width: 68%;
 }
 
 #task-text strong {
